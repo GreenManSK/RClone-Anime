@@ -1,5 +1,4 @@
 using System.Net;
-using System.Security.Policy;
 using HtmlAgilityPack;
 
 namespace RClone_Anime.Image
