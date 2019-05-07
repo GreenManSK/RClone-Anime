@@ -1,0 +1,96 @@
+﻿<Window x:Class="RClone_Anime.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RClone_Anime.Windows"
+        mc:Ignorable="d"
+        Title="Settings"
+        Height="450"
+        Width="350"
+        WindowStartupLocation="CenterScreen"
+        Icon="../Resources/icon.ico">
+
+    <Window.Resources>
+        <Image x:Key="EditIcon" Source="../Resources/edit.png" Width="15" x:Shared="false" />
+        <Image x:Key="RefreshIcon" Source="../Resources/refresh.png" Width="15" x:Shared="false" />
+        <Image x:Key="RemoveIcon" Source="../Resources/remove.png" Width="15" x:Shared="false" />
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            TextWrapping="Wrap"
+            Text="RClone.exe"
+            VerticalAlignment="Center" />
+
+        <TextBox
+            Grid.Row="1"
+            Name="RClonePathInput"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            VerticalContentAlignment="Center"
+            TextWrapping="NoWrap"
+            Margin="0,3,0,7"
+            PreviewMouseDown="OnRClonePathInputClick" />
+
+        <TextBlock
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            TextWrapping="Wrap"
+            Text="Drives"
+            VerticalAlignment="Center" />
+
+        <DataGrid
+            Name="DrivesGrid"
+            Grid.Row="3"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            CanUserResizeColumns="False"
+            CanUserResizeRows="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding DriveName}" Width="*" />
+                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*" />
+                <DataGridTextColumn Header="Watched" Binding="{Binding Watched}" />
+                <DataGridTextColumn Header="Anime" Binding="{Binding Anime.Count}" />
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Content="{StaticResource RefreshIcon}" />
+                                <Button Grid.Column="1" Content="{StaticResource EditIcon}" Click="OnEditClick"/>
+                                <Button Grid.Column="2" Content="{StaticResource RemoveIcon}" Click="OnRemoveClick" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button
+            Grid.Row="4"
+            Content="Add drive"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Click="OnAddButtonClick" />
+
+    </Grid>
+</Window>

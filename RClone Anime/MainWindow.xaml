@@ -5,12 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RClone_Anime"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="RClone Anime" 
         Height="450"
         Width="800"
-        Icon="icon.ico"
+        Icon="Resources/icon.ico"
         >
+    <Window.Resources>
+        <Image x:Key="SettingsIcon" Source="Resources/cog.png" />
+        <Image x:Key="SeenIcon" Source="Resources/seen.png" />
+        <Image x:Key="NotSeenIcon" Source="Resources/not_seen.png" />
+    </Window.Resources>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox 
+                Name="OutputPathInput"
+                HorizontalAlignment="Stretch" 
+                TextWrapping="NoWrap"
+                Text="Output path"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                />
+            <CheckBox 
+                Name="SeenCheckbox"
+                Grid.Column="1"
+                Content="{StaticResource SeenIcon}" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                IsChecked="True" />
+            <CheckBox 
+                Name="NotSeenCheckbox"
+                Grid.Column="2"
+                Content="{StaticResource NotSeenIcon}" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                IsChecked="True"/>
+            <Button 
+                Name="SettingsButton"
+                Grid.Column="3"
+                Content="{StaticResource SettingsIcon}"
+                Click="OnSettingsButtonClick"
+                />
+        </Grid>
     </Grid>
 </Window>

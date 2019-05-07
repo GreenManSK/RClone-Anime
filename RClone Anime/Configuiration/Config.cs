@@ -12,11 +12,11 @@ namespace RClone_Anime.Configuiration
 
         public string RclonePath { get; set; }
         public string OutputPath { get; set; }
-        public Collection<Drive> Drives { get; set; }
+        public ObservableCollection<Drive> Drives { get; set; }
 
         private Config()
         {
-            Drives = new Collection<Drive>();
+            Drives = new ObservableCollection<Drive>();
         }
 
         private void AfterDeserialization()

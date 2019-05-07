@@ -18,6 +18,7 @@ namespace RClone_Anime.Windows
         public PasswordWindow()
         {
             InitializeComponent();
+            PasswordInput.Focus();
         }
 
         private void OnClick(object sender, RoutedEventArgs e)

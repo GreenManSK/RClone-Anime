@@ -9,12 +9,16 @@ namespace RClone_Anime.Configuiration
         public bool Watched { get; set; }
         public Collection<Anime> Anime { get; set; }
 
-        public Drive(string disk, string path, bool watched)
+        public Drive()
         {
-            DriveName = disk;
+            Anime = new Collection<Anime>();
+        }
+
+        public Drive(string driveName, string path, bool watched): this()
+        {
+            DriveName = driveName;
             Path = path;
             Watched = watched;
-            Anime = new Collection<Anime>();
         }
 
         public void AddAnime(Anime anime)
