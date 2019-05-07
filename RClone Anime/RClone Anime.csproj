@@ -69,6 +69,8 @@
     <Compile Include="Configuiration\Config.cs" />
     <Compile Include="Configuiration\Drive.cs" />
     <Compile Include="Encrypt\PasswordStore.cs" />
+    <Compile Include="RClone\LsItem.cs" />
+    <Compile Include="RClone\LsParser.cs" />
     <Compile Include="RClone\RCloneRunner.cs" />
     <Compile Include="Windows\DriveWindow.xaml.cs">
       <DependentUpon>DriveWindow.xaml</DependentUpon>

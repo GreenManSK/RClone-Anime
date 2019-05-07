@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +8,9 @@ namespace RClone_Anime.RClone
     public class RCloneRunner
     {
         public delegate void CopyStatusUpdate(string status);
-        
+
         private const int RefreshConstant = 1; // Number of seconds between stats about copy are send to output
-        
+
         private readonly PasswordStore _password;
         private readonly string _rclonePath;
 
@@ -35,7 +34,7 @@ namespace RClone_Anime.RClone
                 return output;
             });
         }
-        
+
         public Task Copy(string disk, string path, string dest, CopyStatusUpdate callback)
         {
             return Task.Run(() =>
@@ -49,6 +48,7 @@ namespace RClone_Anime.RClone
                 while (!process.StandardError.EndOfStream)
                 {
                     var line = process.StandardError.ReadLine();
+                    Debug.WriteLine($"RClone copy: {line}");
                     if (string.IsNullOrWhiteSpace(line))
                     {
                         callback(sb.ToString());

@@ -63,5 +63,14 @@ namespace RClone_Anime.Windows
             var window = new DriveWindow(_config, drive);
             window.ShowDialog();
         }
+
+        private void OnRefreshClick(object sender, RoutedEventArgs e)
+        {
+            if (DrivesGrid.SelectedItem == null) return;
+            var drive = DrivesGrid.SelectedItem as Drive;
+            var window = new RefreshWindow(drive, _config, _password);
+            window.ShowDialog();
+            DrivesGrid.Items.Refresh();
+        }
     }
 }

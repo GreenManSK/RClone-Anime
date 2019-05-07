@@ -43,7 +43,7 @@
             TextWrapping="Wrap"
             Text="Path"
             VerticalAlignment="Center" />
-        
+
         <TextBox
             Grid.Row="3"
             Name="PathInput"
@@ -53,18 +53,18 @@
             TextWrapping="NoWrap"
             Margin="0,3,0,7" />
 
-        <CheckBox 
+        <CheckBox
             Name="WatchedCheckbox"
             Grid.Row="4"
-            Content="Watched" 
-            HorizontalAlignment="Left" 
+            Content="Watched"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center" />
-        
+
         <Button
             Grid.Row="5"
             Content="Save"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Click="OnSaveClick"/>
+            Click="OnSaveClick" />
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Settings"
         Height="450"
-        Width="350"
+        Width="450"
         WindowStartupLocation="CenterScreen"
         Icon="../Resources/icon.ico">
 
@@ -61,10 +61,10 @@
             CanUserResizeRows="False">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding DriveName}" Width="*" />
+                <DataGridTextColumn Header="Name" Binding="{Binding DriveName}" />
                 <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*" />
                 <DataGridTextColumn Header="Watched" Binding="{Binding Watched}" />
-                <DataGridTextColumn Header="Anime" Binding="{Binding Anime.Count}" />
+                <DataGridTextColumn Header="Anime" Binding="{Binding Anime.Count}" Width="60" />
                 <DataGridTemplateColumn Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -74,8 +74,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button Content="{StaticResource RefreshIcon}" />
-                                <Button Grid.Column="1" Content="{StaticResource EditIcon}" Click="OnEditClick"/>
+                                <Button Content="{StaticResource RefreshIcon}" Click="OnRefreshClick" />
+                                <Button Grid.Column="1" Content="{StaticResource EditIcon}" Click="OnEditClick" />
                                 <Button Grid.Column="2" Content="{StaticResource RemoveIcon}" Click="OnRemoveClick" />
                             </Grid>
                         </DataTemplate>
