@@ -1,12 +1,14 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-using RClone_Anime.Windows;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using RClone_Anime.Configuiration;
 using RClone_Anime.Encrypt;
-using RClone_Anime.RClone;
+using RClone_Anime.Image;
+using RClone_Anime.Windows;
 
 namespace RClone_Anime
 {
@@ -17,11 +19,44 @@ namespace RClone_Anime
     {
         private PasswordStore _password;
         private Config _config;
-        
+        private List<Anime> _anime;
+
         public MainWindow()
         {
             InitializeComponent();
             GetPassword();
+            InitValues();
+        }
+
+        private void InitValues()
+        {
+            OutputPathInput.Text = _config.OutputPath ?? Directory.GetCurrentDirectory();
+            LoadAnimeFromConfig();
+        }
+
+        private void LoadAnimeFromConfig()
+        {
+            Task.Run(() =>
+            {
+                LoadAnime();
+                UpdateAnimeGrid();
+            });
+        }
+
+        private void LoadAnime()
+        {
+            _anime = new List<Anime>();
+            foreach (var drive in _config.Drives)
+            {
+                _anime.AddRange(drive.Anime);
+            }
+
+            _anime.Sort((a, b) => String.Compare(a.Name, b.Name, StringComparison.Ordinal));
+        }
+
+        private void UpdateAnimeGrid()
+        {
+            Application.Current.Dispatcher.Invoke(() => { AnimeGrid.ItemsSource = _anime; });
         }
 
         ~MainWindow()
@@ -46,6 +81,26 @@ namespace RClone_Anime
         {
             var window = new SettingsWindow(_password, _config);
             window.ShowDialog();
+            LoadAnimeFromConfig();
+        }
+
+        private void OnOutputPathInputClick(object sender, MouseButtonEventArgs e)
+        {
+            var openFileDialog = new CommonOpenFileDialog();
+            openFileDialog.IsFolderPicker = true;
+            openFileDialog.InitialDirectory = _config.OutputPath ?? Directory.GetCurrentDirectory();
+            if (openFileDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
+            OutputPathInput.Text = openFileDialog.FileName;
+            _config.OutputPath = openFileDialog.FileName;
+        }
+
+        private void OnImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            Task.Run(async () =>
+            {
+                await Task.WhenAll(GoogleImage.AddImages(_anime, true));
+                AnimeGrid.Items.Refresh();
+            });
         }
     }
 }

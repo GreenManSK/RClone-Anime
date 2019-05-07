@@ -1,16 +1,16 @@
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using RClone_Anime.Image;
 
 namespace RClone_Anime.Configuiration
 {
     public class Anime
     {
         public string Name { get; set; }
-        public string Image { get; set; }
         public Collection<AnimeFile> Files { get; set; }
-        
-        [JsonIgnore]
-        public Drive Drive { get; set; }
+        public string Image { get; set; }
+
+        [JsonIgnore] public Drive Drive { get; set; }
 
         public Anime(string name)
         {
@@ -24,6 +24,11 @@ namespace RClone_Anime.Configuiration
             Files.Add(file);
         }
 
+        public void RefreshImage()
+        {
+            Image = GoogleImage.getFirst($"anime {Name}");
+        }
+        
         public void AfterDeserialization()
         {
             foreach (var file in Files)

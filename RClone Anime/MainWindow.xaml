@@ -14,14 +14,62 @@
         <Image x:Key="SettingsIcon" Source="Resources/cog.png" />
         <Image x:Key="SeenIcon" Source="Resources/seen.png" />
         <Image x:Key="NotSeenIcon" Source="Resources/not_seen.png" />
+        <Image x:Key="ImageIcon" Source="Resources/image.png" />
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
+        <DataGrid
+            Name="AnimeGrid"
+            Grid.Row="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            IsReadOnly="True"
+            AutoGenerateColumns="False">
+            
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">              
+                    <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </DataGrid.CellStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel >  
+                                <Image Height="100" Width="100" Source="{Binding Image}" />         
+                            </StackPanel>  
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>                            
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Watched" Binding="{Binding Drive.Watched}" />
+                <DataGridTextColumn Header="Files" Binding="{Binding Files.Count}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -32,15 +80,7 @@
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-
-            <TextBox 
-                Name="OutputPathInput"
-                HorizontalAlignment="Stretch" 
-                TextWrapping="NoWrap"
-                Text="Output path"
-                VerticalAlignment="Stretch"
-                VerticalContentAlignment="Center"
-                />
+            
             <CheckBox 
                 Name="SeenCheckbox"
                 Grid.Column="1"
@@ -58,8 +98,34 @@
                 VerticalContentAlignment="Center"
                 IsChecked="True"/>
             <Button 
-                Name="SettingsButton"
+                Name="ImageButton"
                 Grid.Column="3"
+                Content="{StaticResource ImageIcon}"
+                Click="OnImageButtonClick"
+            />
+        </Grid>
+        
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox 
+                Name="OutputPathInput"
+                HorizontalAlignment="Stretch" 
+                TextWrapping="NoWrap"
+                Text="Output path"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                PreviewMouseDown="OnOutputPathInputClick"
+                />
+            <Button 
+                Name="SettingsButton"
+                Grid.Column="1"
                 Content="{StaticResource SettingsIcon}"
                 Click="OnSettingsButtonClick"
                 />
