@@ -6,7 +6,7 @@ namespace RClone_Anime.RClone
 {
     public class LsParser
     {
-        private const string LsRegex = @"^\s*(\d+)\s+(?:[^/][/])?(.+)$";
+        private const string LsRegex = @"^\s*(\d+)\s+(?:([^/]+)[/])?(.+)$";
 
         private LsParser()
         {
