@@ -103,6 +103,9 @@
     <Compile Include="Windows\DriveWindow.xaml.cs">
       <DependentUpon>DriveWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\FileListWindow.xaml.cs">
+      <DependentUpon>FileListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\DriveWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FileListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

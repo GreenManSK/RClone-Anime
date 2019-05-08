@@ -34,6 +34,11 @@ namespace RClone_Anime.Configuiration
             return $"{Drive.Path}/{Name}";
         }
 
+        public string GetOutputPath(string outputDir)
+        {
+            return $"{outputDir}/{Name}";
+        }
+
         public void AfterDeserialization()
         {
             foreach (var file in Files)

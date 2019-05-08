@@ -150,7 +150,7 @@ namespace RClone_Anime
             if (AnimeGrid.SelectedItem == null) return;
             var anime = AnimeGrid.SelectedItem as Anime;
             var window = new DownloadWindow(anime, _password, _config);
-            window.ShowDialog();
+            window.Show();
         }
     }
 }

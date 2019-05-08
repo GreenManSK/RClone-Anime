@@ -17,7 +17,7 @@ namespace RClone_Anime.Windows
         private string _outputPath;
 
         private Process _process;
-        
+
         public DownloadWindow(Anime anime, PasswordStore password, Config config)
         {
             _anime = anime;
@@ -28,7 +28,7 @@ namespace RClone_Anime.Windows
             StartDownload();
         }
 
-        private void OnWindowClosing(object sender, CancelEventArgs e) 
+        private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             Debug.WriteLine("Killing:" + _process);
             _process?.Kill();
@@ -36,10 +36,8 @@ namespace RClone_Anime.Windows
 
         private void StartDownload()
         {
-            _runner.Copy(_anime.Drive.DriveName, _anime.GetPath(), _outputPath, out _process, (log) =>
-            {
-                Application.Current.Dispatcher.Invoke(() => { ProgressBox.Text = log; });
-            });
+            _runner.Copy(_anime.Drive.DriveName, _anime.GetPath(), _anime.GetOutputPath(_outputPath), out _process,
+                (log) => { Application.Current.Dispatcher.Invoke(() => { ProgressBox.Text = log; }); });
         }
     }
 }
