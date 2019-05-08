@@ -15,6 +15,9 @@
         <Image x:Key="SeenIcon" Source="Resources/seen.png" />
         <Image x:Key="NotSeenIcon" Source="Resources/not_seen.png" />
         <Image x:Key="ImageIcon" Source="Resources/image.png" />
+        <Image x:Key="AnidbIcon" Source="Resources/anidb.png" x:Shared="false" />
+        <Image x:Key="FolderIcon" Source="Resources/folder.png" x:Shared="false" Width="15" />
+        <Image x:Key="DownloadIcon" Source="Resources/Download.png" x:Shared="false" Width="15"  />
     </Window.Resources>
     
     <Grid>
@@ -67,6 +70,33 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Watched" Binding="{Binding Drive.Watched}" />
                 <DataGridTextColumn Header="Files" Binding="{Binding Files.Count}" />
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button 
+                                    Content="{StaticResource AnidbIcon}"
+                                    Click="OnAnidbButtonClick"
+                                />
+                                <Button 
+                                    Grid.Column="1"
+                                    Content="{StaticResource FolderIcon}"
+                                    Click="OnSettingsButtonClick"
+                                />
+                                <Button 
+                                    Grid.Column="2"
+                                    Content="{StaticResource DownloadIcon}"
+                                    Click="OnSettingsButtonClick"
+                                />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using RClone_Anime.Anidb;
 using RClone_Anime.Configuiration;
 using RClone_Anime.Encrypt;
 using RClone_Anime.Image;
@@ -134,6 +136,13 @@ namespace RClone_Anime
         private void OnFilterInputChange(object sender, TextChangedEventArgs e)
         {
             LoadAnimeFromConfig(false);
+        }
+
+        private void OnAnidbButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (AnimeGrid.SelectedItem == null) return;
+            var anime = AnimeGrid.SelectedItem as Anime;
+            Process.Start(AnidbHelper.SearchLink(anime.Name));
         }
     }
 }

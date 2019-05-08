@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Anidb\AnidbHelper.cs" />
     <Compile Include="Configuiration\Anime.cs" />
     <Compile Include="Configuiration\AnimeFile.cs" />
     <Compile Include="Configuiration\Config.cs" />
@@ -185,6 +186,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\anidb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
