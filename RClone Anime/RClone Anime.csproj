@@ -97,6 +97,9 @@
     <Compile Include="RClone\LsItem.cs" />
     <Compile Include="RClone\LsParser.cs" />
     <Compile Include="RClone\RCloneRunner.cs" />
+    <Compile Include="Windows\DownloadWindow.xaml.cs">
+      <DependentUpon>DownloadWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DriveWindow.xaml.cs">
       <DependentUpon>DriveWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\DownloadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DriveWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

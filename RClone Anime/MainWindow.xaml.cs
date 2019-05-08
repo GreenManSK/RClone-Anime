@@ -144,5 +144,13 @@ namespace RClone_Anime
             var anime = AnimeGrid.SelectedItem as Anime;
             Process.Start(AnidbHelper.SearchLink(anime.Name));
         }
+
+        private void OnDownloadButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (AnimeGrid.SelectedItem == null) return;
+            var anime = AnimeGrid.SelectedItem as Anime;
+            var window = new DownloadWindow(anime, _password, _config);
+            window.ShowDialog();
+        }
     }
 }

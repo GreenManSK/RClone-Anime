@@ -35,11 +35,12 @@ namespace RClone_Anime.RClone
             });
         }
 
-        public Task Copy(string disk, string path, string dest, CopyStatusUpdate callback)
+        public Task Copy(string disk, string path, string dest, out Process outProcess, CopyStatusUpdate callback)
         {
+            var process = CreateProcess(CopyArgument(disk, path, dest));
+            outProcess = process;
             return Task.Run(() =>
             {
-                var process = CreateProcess(CopyArgument(disk, path, dest));
                 process.Start();
 
                 process.StandardInput.WriteLine(_password.Get());
@@ -59,7 +60,7 @@ namespace RClone_Anime.RClone
                         sb.AppendLine(line);
                     }
                 }
-
+                
                 process.WaitForExit();
             });
         }

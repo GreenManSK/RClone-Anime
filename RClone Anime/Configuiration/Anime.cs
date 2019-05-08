@@ -28,7 +28,12 @@ namespace RClone_Anime.Configuiration
         {
             Image = GoogleImage.getFirst($"anime {Name}");
         }
-        
+
+        public string GetPath()
+        {
+            return $"{Drive.Path}/{Name}";
+        }
+
         public void AfterDeserialization()
         {
             foreach (var file in Files)

@@ -91,7 +91,7 @@
                                 <Button 
                                     Grid.Column="2"
                                     Content="{StaticResource DownloadIcon}"
-                                    Click="OnSettingsButtonClick"
+                                    Click="OnDownloadButtonClick"
                                 />
                             </Grid>
                         </DataTemplate>
@@ -123,7 +123,7 @@
                 Name="FilterInput"
                 HorizontalAlignment="Stretch" 
                 TextWrapping="NoWrap"
-                Text=".*"
+                Text=""
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 TextChanged="OnFilterInputChange"
