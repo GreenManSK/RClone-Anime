@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -30,7 +29,9 @@ namespace RClone_Anime
 
         private void InitValues()
         {
-            OutputPathInput.Text = _config.OutputPath ?? Directory.GetCurrentDirectory();
+            if (_config == null)
+                return;
+            OutputPathInput.Text = _config.GetOutputPath();
             LoadAnimeFromConfig();
         }
 
@@ -88,7 +89,7 @@ namespace RClone_Anime
         {
             var openFileDialog = new CommonOpenFileDialog();
             openFileDialog.IsFolderPicker = true;
-            openFileDialog.InitialDirectory = _config.OutputPath ?? Directory.GetCurrentDirectory();
+            openFileDialog.InitialDirectory = _config.GetOutputPath();
             if (openFileDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
             OutputPathInput.Text = openFileDialog.FileName;
             _config.OutputPath = openFileDialog.FileName;

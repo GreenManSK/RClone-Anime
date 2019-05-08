@@ -37,6 +37,11 @@ namespace RClone_Anime.Configuiration
             }
         }
 
+        public string GetOutputPath()
+        {
+            return OutputPath ?? Directory.GetCurrentDirectory();
+        }
+
         public static Config Get(PasswordStore password)
         {
             return _instance ?? (_instance = Deserialize(password));
