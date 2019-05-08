@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using RClone_Anime.Configuiration;
@@ -35,12 +39,19 @@ namespace RClone_Anime
             LoadAnimeFromConfig();
         }
 
-        private void LoadAnimeFromConfig()
+        private void LoadAnimeFromConfig(bool reloadAnime = true)
         {
+            var showSeen = SeenCheckbox != null && SeenCheckbox.IsChecked.HasValue && SeenCheckbox.IsChecked.Value;
+            var showNotSeen = NotSeenCheckbox != null && NotSeenCheckbox.IsChecked.HasValue &&
+                              NotSeenCheckbox.IsChecked.Value;
+            var nameFilter = FilterInput.Text;
             Task.Run(() =>
             {
-                LoadAnime();
-                UpdateAnimeGrid();
+                if (reloadAnime)
+                {
+                    LoadAnime();
+                }
+                UpdateAnimeGrid(showSeen, showNotSeen, nameFilter);
             });
         }
 
@@ -52,12 +63,18 @@ namespace RClone_Anime
                 _anime.AddRange(drive.Anime);
             }
 
-            _anime.Sort((a, b) => String.Compare(a.Name, b.Name, StringComparison.Ordinal));
+            _anime.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
         }
 
-        private void UpdateAnimeGrid()
+        private void UpdateAnimeGrid(bool showSeen, bool showNotSeen, string nameFilter)
         {
-            Application.Current.Dispatcher.Invoke(() => { AnimeGrid.ItemsSource = _anime; });
+            if (_anime == null)
+                return;
+            IEnumerable anime = _anime
+                .Where(a => ((a.Drive.Watched && showSeen) || (!a.Drive.Watched && showNotSeen)) && Regex.IsMatch(a.Name, nameFilter))
+                .Select(a => a);
+
+            Application.Current.Dispatcher.Invoke(() => { AnimeGrid.ItemsSource = anime; });
         }
 
         ~MainWindow()
@@ -102,6 +119,21 @@ namespace RClone_Anime
                 await Task.WhenAll(GoogleImage.AddImages(_anime, true));
                 AnimeGrid.Items.Refresh();
             });
+        }
+
+        private void SeenCheckboxChanged(object sender, RoutedEventArgs e)
+        {
+            if (SeenCheckbox == null || NotSeenCheckbox == null)
+            {
+                return;
+            }
+
+            LoadAnimeFromConfig(false);
+        }
+
+        private void OnFilterInputChange(object sender, TextChangedEventArgs e)
+        {
+            LoadAnimeFromConfig(false);
         }
     }
 }
