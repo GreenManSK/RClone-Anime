@@ -26,6 +26,7 @@
             AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Ext" Binding="{Binding Ext}" />
 
             </DataGrid.Columns>
         </DataGrid>

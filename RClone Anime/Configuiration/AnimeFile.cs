@@ -1,3 +1,4 @@
+using System.IO;
 using Newtonsoft.Json;
 
 namespace RClone_Anime.Configuiration
@@ -5,9 +6,11 @@ namespace RClone_Anime.Configuiration
     public class AnimeFile
     {
         public string Name { get; set; }
-        
+
+        [JsonIgnore] public Anime Anime { get; set; }
+
         [JsonIgnore]
-        public Anime Anime { get; set; }
+        public string Ext => Path.GetExtension(Name);
 
         public AnimeFile(string name)
         {
