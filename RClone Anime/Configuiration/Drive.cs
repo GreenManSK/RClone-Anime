@@ -32,6 +32,7 @@ namespace RClone_Anime.Configuiration
             foreach (var anime in Anime)
             {
                 anime.Drive = this;
+                anime.AfterDeserialization();
             }
         }
     }

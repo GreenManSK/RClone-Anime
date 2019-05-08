@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:RClone_Anime"
         mc:Ignorable="d"
         Title="RClone Anime" 
-        Height="450"
         Width="800"
+        Height="900"
         Icon="Resources/icon.ico"
+        WindowStartupLocation="CenterScreen"
         >
     <Window.Resources>
         <Image x:Key="SettingsIcon" Source="Resources/cog.png" />
@@ -86,7 +87,7 @@
                                 <Button 
                                     Grid.Column="1"
                                     Content="{StaticResource FolderIcon}"
-                                    Click="OnSettingsButtonClick"
+                                    Click="OnFolderButtonClick"
                                 />
                                 <Button 
                                     Grid.Column="2"

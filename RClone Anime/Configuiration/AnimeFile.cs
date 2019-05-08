@@ -13,5 +13,10 @@ namespace RClone_Anime.Configuiration
         {
             Name = name;
         }
+
+        public string GetPath()
+        {
+            return $"{Anime.GetPath()}/{Name}";
+        }
     }
 }

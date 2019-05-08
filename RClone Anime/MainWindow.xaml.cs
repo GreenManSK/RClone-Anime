@@ -151,6 +151,15 @@ namespace RClone_Anime
             var anime = AnimeGrid.SelectedItem as Anime;
             var window = new DownloadWindow(anime, _password, _config);
             window.Show();
+            window.StartDownload();
+        }
+
+        private void OnFolderButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (AnimeGrid.SelectedItem == null) return;
+            var anime = AnimeGrid.SelectedItem as Anime;
+            var window = new FileListWindow(anime, _password, _config);
+            window.ShowDialog();
         }
     }
 }

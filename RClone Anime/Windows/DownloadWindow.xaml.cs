@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using RClone_Anime.Configuiration;
 using RClone_Anime.Encrypt;
@@ -12,9 +14,11 @@ namespace RClone_Anime.Windows
     /// </summary>
     public partial class DownloadWindow : Window
     {
-        private Anime _anime;
-        private RCloneRunner _runner;
-        private string _outputPath;
+        public List<AnimeFile> Files { get; set; }
+
+        private readonly Anime _anime;
+        private readonly RCloneRunner _runner;
+        private readonly string _outputPath;
 
         private Process _process;
 
@@ -25,16 +29,48 @@ namespace RClone_Anime.Windows
             _outputPath = config.OutputPath;
             Closing += OnWindowClosing;
             InitializeComponent();
-            StartDownload();
         }
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            Debug.WriteLine("Killing:" + _process);
-            _process?.Kill();
+            if (_process != null && !_process.HasExited)
+            {
+                Debug.WriteLine("Killing:" + _process);
+                _process?.Kill();
+            }
         }
 
-        private void StartDownload()
+        public void StartDownload()
+        {
+            if (_process != null)
+                return;
+            if (Files == null)
+            {
+                StartDownloadAll();
+            }
+            else
+            {
+                StartDownloadFileList();
+            }
+        }
+
+        private void StartDownloadFileList()
+        {
+            Task.Run(async () =>
+            {
+                foreach (var file in Files)
+                {
+                    await _runner.Copy(
+                        _anime.Drive.DriveName,
+                        file.GetPath(),
+                        _anime.GetOutputPath(_outputPath),
+                        out _process,
+                        (log) => { Application.Current.Dispatcher.Invoke(() => { ProgressBox.Text = log; }); });
+                }
+            });
+        }
+
+        private void StartDownloadAll()
         {
             _runner.Copy(_anime.Drive.DriveName, _anime.GetPath(), _anime.GetOutputPath(_outputPath), out _process,
                 (log) => { Application.Current.Dispatcher.Invoke(() => { ProgressBox.Text = log; }); });
