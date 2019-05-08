@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using RClone_Anime.Configuiration;
@@ -20,6 +21,7 @@ namespace RClone_Anime.Windows
         {
             _password = password;
             _config = config;
+            Closing += OnWindowClosing;
             InitializeComponent();
             InitVlaues();
         }
@@ -30,7 +32,7 @@ namespace RClone_Anime.Windows
             DrivesGrid.ItemsSource = _config.Drives;
         }
 
-        ~SettingsWindow()
+        private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             _config.Save(_password);
         }
