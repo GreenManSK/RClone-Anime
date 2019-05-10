@@ -73,7 +73,8 @@ namespace RClone_Anime
             if (_anime == null)
                 return;
             IEnumerable anime = _anime
-                .Where(a => ((a.Drive.Watched && showSeen) || (!a.Drive.Watched && showNotSeen)) && Regex.IsMatch(a.Name, nameFilter))
+                .Where(a => ((a.Drive.Watched && showSeen) || (!a.Drive.Watched && showNotSeen)) 
+                            && Regex.IsMatch(a.Name, nameFilter, RegexOptions.IgnoreCase))
                 .Select(a => a);
 
             Application.Current.Dispatcher.Invoke(() => { AnimeGrid.ItemsSource = anime; });
