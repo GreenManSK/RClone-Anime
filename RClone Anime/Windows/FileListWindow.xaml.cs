@@ -33,6 +33,7 @@ namespace RClone_Anime.Windows
             _config = config;
             InitializeComponent();
             FileGrid.ItemsSource = anime.Files;
+            DriveName.Text = $"{anime.Drive.DriveName}:{anime.Drive.Path}";
         }
 
         private void OnDownloadButtonClick(object sender, RoutedEventArgs e)

@@ -12,14 +12,23 @@
         Icon="../Resources/icon.ico">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-
+        <TextBlock 
+            Grid.Row="0"
+            Margin="5,5,5,0"
+            Name="DriveName"
+            Text="disk01:/afasf/asfsaf/"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+        />
+        
         <DataGrid
             Name="FileGrid"
-            Grid.Row="0"
+            Grid.Row="1"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             IsReadOnly="True"
@@ -33,7 +42,7 @@
 
         <Button
             Name="DownloadButton"
-            Grid.Row="1"
+            Grid.Row="2"
             Content="Download"
             Click="OnDownloadButtonClick" />
     </Grid>
