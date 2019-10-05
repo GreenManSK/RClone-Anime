@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -31,6 +32,7 @@ namespace RClone_Anime
             InitializeComponent();
             GetPassword();
             InitValues();
+            Closing += OnWindowClosing;
         }
 
         private void InitValues()
@@ -80,9 +82,9 @@ namespace RClone_Anime
             Application.Current.Dispatcher.Invoke(() => { AnimeGrid.ItemsSource = anime; });
         }
 
-        ~MainWindow()
+        private void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            _config?.Save(_password);
+            _config.Save(_password);
         }
 
         private void GetPassword()
